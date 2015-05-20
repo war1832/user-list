@@ -1,0 +1,118 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+    <title>User List</title>
+</head>
+<body ng-app="App">
+	<div class="container" ng-controller="MainController as vm">
+    	<h1>{{vm.title}}</h1>
+    	<div class="row">
+    		<div class="col-md-6 col-md-offset-3">
+    			<input class="form-control" type="text" placeholder="Filter" ng-model="vm.filtro">
+    		</div>
+    	</div>
+    	<hr>
+	    <table class="table table-striped">
+	    	<th>#</th>
+	    	<th>First Name</th>
+	    	<th>Last Name</th>
+	    	<th>Profile</th>
+	    	<tr ng-repeat="item in vm.users | filter:vm.filtro" >
+	    		<td>{{$index+1}}</td>
+	    		<td>{{item.user.name.first}}</td>
+	    		<td>{{item.user.name.last}}</td>
+	    		<td>
+	    			<button type="button" ng-click="vm.setCurrent(item)" class="btn btn-primary btn" data-toggle="modal" data-target="#Profile"> <span class="glyphicon glyphicon-user"></span> Show</button>
+				</td>
+	    	</tr>
+	    </table>
+		<div class="modal fade" id="Profile" tabindex="-1" role="dialog" aria-labelledby="ProfilelLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="ProfileLabel">Profile</h4>
+		      </div>
+		      <div class="modal-body" ng-hide="!vm.current">
+		        <div class="row">
+		        	<div class="col-md-4">
+		        		<img class="img-responsive img-circle" src="{{vm.current.user.picture.medium}}">
+		        	</div>
+		        	<div class="col-md-8">
+		        		<ul class="nav nav-tabs">
+						  <li class="active"><a data-toggle="tab" href="#user"> <span class="glyphicon glyphicon-info-sign"></span> User</a></li>
+						  <li ><a data-toggle="tab" href="#loction"><span class="glyphicon glyphicon-map-marker"></span> Location</a></li>
+						</ul>
+						<div class="tab-content">
+						  <div id="user" class="tab-pane active">
+						  	<div class="row">
+						  		<div class="col-md-12">
+						  			<table class="table">
+							  			<tr>
+							  				<td><strong>first name:</strong></td>
+							  				<td>{{vm.current.user.name.first}}</td>	
+							  			</tr>
+							  			<tr>
+							  				<td><strong>last name:</strong></td>
+							  				<td>{{vm.current.user.name.last}}</td>	
+							  			</tr>
+							  			<tr>
+							  				<td><strong>email:</strong></td>
+							  				<td>{{vm.current.user.email}}</td>
+							  			</tr>
+							  			<tr>
+							  				<td><strong>phone:</strong></td>
+							  				<td>{{vm.current.user.phone}}</td>
+							  			</tr>
+							  			<tr>
+							  				<td><strong>cell:</strong></td>
+							  				<td>{{vm.current.user.cell}}</td>
+							  			</tr>
+									</table>
+						  		</div>
+						  	</div>
+						  </div>
+						  <div id="loction" class="tab-pane">
+						  <div class="row">
+							  	<div class="col-md-12">
+								  	<table class="table">
+								  		<tr>
+								  			<td><strong>street</strong></td>
+								  			<td>{{vm.current.user.location.street}}</td>
+								  		</tr>
+								  		<tr>
+								  			<td><strong>city</strong></td>
+								  			<td>{{vm.current.user.location.city}}</td>
+								  		</tr>
+								  		<tr>
+								  			<td><strong>state</strong></td>
+								  			<td>{{vm.current.user.location.state}}</td>
+								  		</tr>
+								  		<tr>
+								  			<td><strong>zip</strong></td>
+								  			<td>{{vm.current.user.location.zip}}</td>
+								  		</tr>
+								  	</table>
+								</div>
+							  </div>
+						  </div>
+					  </div>
+		        	</div>
+		        </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+ 	</div>
+ 	<script src="vendor/jquery/dist/jquery.min.js"></script>
+	<script src="vendor/angular/angular.min.js"></script>
+	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
